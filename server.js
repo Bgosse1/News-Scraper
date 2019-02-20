@@ -14,8 +14,16 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static("public"));
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+let exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// require("./routes/apiRoutes")(app);
+// require("./routes/htmlRoutes")(app);
+var htmlRoutes = require("./routes/htmlRoutes");
+var apiRoutes = require("./routes/apiRoutes");
+app.use(htmlRoutes);
+app.use(apiRoutes);
 
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
