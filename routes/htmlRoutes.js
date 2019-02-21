@@ -2,7 +2,7 @@ let express = require("express");
 
 let router = express.Router();
 
-router.get("/", function(req, res) {
+router.get("/", (req, res) => {
     let objectTest = {
         cats: "hello"
     };

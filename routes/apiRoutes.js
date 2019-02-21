@@ -1,3 +1,7 @@
-module.exports = app => {
-    
-};
+let express = require("express");
+
+let router = express.Router();
+
+
+
+module.exports = router;
