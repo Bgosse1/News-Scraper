@@ -5,7 +5,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Saved Articles</a></li>
-                <li><a class="waves-effect waves-light btn">SCRAPE NEW ARTICLES!</a></li>
+                <li><a id="btnScrape" class="waves-effect waves-light btn">SCRAPE NEW ARTICLES!</a></li>
             </ul>
         </div>
     </nav>
@@ -21,6 +21,24 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        {{#each Article}}
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-image">
+                    <img src="images/newspaper.jpg">
+                    <span class="card-title black-text">{{ title }}</span>
+                    <a class="btn-floating halfway-fab waves-effect waves-light blue"><i
+                            class="material-icons">add</i></a>
+                </div>
+                <div class="card-action">
+                    <a href="{{ link }}" class="waves-effect waves-light btn-small black">Read<i
+                            class="material-icons right">open_in_browser</i></a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
     </div>
 </div>
 <footer class="page-footer">
