@@ -1,10 +1,10 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">News Scraper</a>
+            <a href="/" class="brand-logo">News Scraper</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Saved Articles</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/saved">Saved Articles</a></li>
                 <li><a id="btnScrape" class="waves-effect waves-light btn">SCRAPE NEW ARTICLES!</a></li>
             </ul>
         </div>
@@ -17,7 +17,7 @@
                 <!-- Card Content -->
                 <div class="card-image">
                     <img src="/images/newspaper.jpg">
-                    <span class="card-title">News Scraper</span>
+                    <span class="card-title black-text">News Scraper</span>
                 </div>
             </div>
         </div>
@@ -25,17 +25,28 @@
     <div class="row">
         {{#each Article}}
         <div class="col s12 m6">
-            <div class="card">
+            <div class="card left">
                 <div class="card-image">
                     <img src="images/newspaper.jpg">
-                    <span class="card-title black-text">{{ title }}</span>
-                    <a class="btn-floating halfway-fab waves-effect waves-light blue"><i
+                    <span class="card-title black-text">{{ title }} {{saved}}</span>
+                    {{#if saved}}
+
+                    <a data-id="{{id}}" class="remove btn-floating halfway-fab waves-effect waves-light red"><i
+                            class="material-icons">remove</i></a>
+                    {{else}}
+                    <a data-id="{{id}}" class="add btn-floating halfway-fab waves-effect waves-light green"><i
                             class="material-icons">add</i></a>
+                    {{/if}}
                 </div>
                 <div class="card-action">
                     <a href="{{ link }}" class="waves-effect waves-light btn-small black">Read<i
                             class="material-icons right">open_in_browser</i></a>
+                    {{#if saved}}
+                    <a href="#modal1" class="waves-effect waves-light btn-small blue modal-trigger">Comment<i
+                            class="material-icons right">note_add</i></a>
+                    {{/if}}
                 </div>
+
             </div>
         </div>
         {{/each}}
@@ -48,3 +59,27 @@
         </div>
     </div>
 </footer>
+
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Notes For Article: </h4>
+        <ul class="collection with-header">
+            {{#if comment}}
+            There currently are not Comments
+            {{/if}}     
+      </ul>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                        <label for="textarea1">Comment</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Save</a>
+    </div>
+</div>

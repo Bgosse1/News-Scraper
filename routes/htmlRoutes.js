@@ -4,12 +4,24 @@ let db = require("../models");
 let router = express.Router();
 
 router.get("/", (req, res) => {
-    console.log("here i am");
-  db.Article.find({})
+  db.Article.find({saved: false})
     .then(function(dbArticle) {
-        var hbsObject = {
-            Article: dbArticle
-          };
+      var hbsObject = {
+        Article: dbArticle
+      };
+      res.render("index", hbsObject);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+router.get("/saved", (req, res) => {
+  db.Article.find({ saved: true })
+    .then(function(dbArticle) {
+      var hbsObject = {
+        Article: dbArticle
+      };
       res.render("index", hbsObject);
     })
     .catch(function(err) {
@@ -18,4 +30,3 @@ router.get("/", (req, res) => {
 });
 
 module.exports = router;
-

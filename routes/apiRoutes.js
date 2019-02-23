@@ -17,6 +17,7 @@ router.get("/scrape", function(req, res) {
         .attr("href");
       result.saved = false;
       result.summary = "";
+      console.log(result);
       db.Article.create(result)
         .then(function(dbArticle) {
           console.log(dbArticle);
@@ -28,5 +29,25 @@ router.get("/scrape", function(req, res) {
     res.send("Scrape Complete");
   });
 });
+
+router.put("/save/:id", function(req, res) {
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true })
+    .then(function(data) {
+      res.json(data);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+router.put("/remove/:id", function(req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
+      .then(function(data) {
+        res.json(data);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
 
 module.exports = router;
