@@ -14,16 +14,19 @@ let ArticleSchema = new Schema({
   },
   link: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   saved: {
     type: Boolean,
     required: true
   },
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Comment"
-  }
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 let Article = mongoose.model("Article", ArticleSchema);

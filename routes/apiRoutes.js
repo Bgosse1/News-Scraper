@@ -41,13 +41,43 @@ router.put("/save/:id", function(req, res) {
 });
 
 router.put("/remove/:id", function(req, res) {
-    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
-      .then(function(data) {
-        res.json(data);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+  db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
+    .then(function(data) {
+      res.json(data);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+router.get("/articles/:id", function(req, res) {
+  db.Article.findOne({ _id: req.params.id })
+    .populate("comments")
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+router.post("/comment/:id", function(req, res) {
+  console.log(req.params.id);
+  db.Comment.create(req.body)
+    .then(function(dbComment) {
+      console.log(dbComment);
+      return db.Article.findOneAndUpdate(
+        { _id: req.params.id },
+        { $push: { comments: dbComment._id } },
+        { new: true }
+      );
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
 
 module.exports = router;
