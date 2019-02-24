@@ -80,4 +80,20 @@ router.post("/comment/:id", function(req, res) {
     });
 });
 
+router.delete("/comment/:id", function(req, res) {
+  db.Comment.findByIdAndRemove({ _id: req.params.id })
+    .then(function(dbComment) {
+      return db.Article.findOneAndUpdate(
+        { comments: req.params.id },
+        { $pullAll: [{ comments: req.params.id }] }
+      );
+    })
+    .then(function(dbArticle) {      
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
 module.exports = router;

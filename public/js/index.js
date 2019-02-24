@@ -57,7 +57,7 @@ $(function() {
               `<li class='collection-item'>        
                 <div class="valign-wrapper">
                     ${comment.text}
-                      <a class='btn-floating btn-small waves-effect waves-light red' data='${
+                      <a id="removeComment"class='btn-floating btn-small waves-effect waves-light red modal-close' data='${
                         comment._id
                       }'>
                     <i class="material-icons">remove</i>
@@ -83,6 +83,16 @@ $(function() {
     $.ajax(`/comment/${id}`, {
       type: "POST",
       data: { text: comment }
+    }).then(function(data) {
+      console.log(data);
+    });
+  });
+
+  $(document).on("click", "#removeComment", function() {
+    event.preventDefault();
+    const id = $(this).attr("data");
+    $.ajax(`/comment/${id}`, {
+      type: "DELETE"
     }).then(function(data) {
       console.log(data);
     });
