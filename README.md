@@ -1,5 +1,7 @@
 # News-Scraper
 
+![News-Scraper](./public/images/ScreenShot.png)
+
 [Deployed Site](https://sheltered-gorge-46172.herokuapp.com/)
 
 ### Overview

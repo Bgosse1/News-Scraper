@@ -4,7 +4,7 @@ $(function() {
     $.ajax("/scrape", {
       type: "Get"
     }).then(function(res) {
-      console.log(res);
+       location.reload();
     });
   });
 
@@ -16,7 +16,6 @@ $(function() {
     $.ajax(`/save/${id}`, {
       type: "PUT"
     }).then(function() {
-      // M.toast({html: "Article Saved"});
       location.reload();
     });
   });
@@ -29,7 +28,6 @@ $(function() {
     $.ajax(`/remove/${id}`, {
       type: "PUT"
     }).then(function() {
-      // M.toast({html: "Article Removed"});
       location.reload();
     });
   });
@@ -50,7 +48,6 @@ $(function() {
           $(`<li class="collection-item">No Comments For This Article</li>`)
         );
       } else {
-        //TODO populate articles that have comments
         data.comments.forEach(comment => {
           $(".collection").append(
             $(
@@ -70,9 +67,7 @@ $(function() {
       }
     });
   });
-  {
-    /* <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a> */
-  }
+
   $("#btnSaveComment").click(function(event) {
     event.preventDefault();
     const id = $("#article-id").text();
